@@ -1,0 +1,40 @@
+{
+  "name": "hpw",
+  "version": "0.0.1",
+  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
+  "description": "Laboratory Work Generator and Checker",
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "programming",
+    "node.js"
+  ],
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HowProgrammingWorks/Labs"
+  },
+  "bugs": {
+    "url": "https://github.com/HowProgrammingWorks/Labs/issues",
+    "email": "timur.shemsedinov@gmail.com"
+  },
+  "main": "./bin/hpw.js",
+  "bin": {
+    "hpw": "./bin/hpw.js"
+  },
+  "scripts": {
+    "install": "node ./bin/install.js",
+    "test": "npm run lint",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "metasync": "^0.3.7",
+    "concolor": "^0.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0"
+  }
+}
