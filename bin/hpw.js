@@ -2,7 +2,6 @@
 'use strict';
 
 const os = require('os');
-const fs = require('fs');
 const concolor = require('concolor');
 const readline = require('readline');
 
