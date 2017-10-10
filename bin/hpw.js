@@ -26,8 +26,8 @@ function showHelp(
   // Command line commands list
 ) {
   console.log(
-    concolor.b('Syntax:\n') +
-    concolor.white('  hpw <studCode>\n')
+    concolor.b('Syntax:') +
+    concolor.white(' hpw generate <studCode>\n')
   );
   doExit();
 }
@@ -48,10 +48,28 @@ const commands = {
     doExit();
   },
 
+  generate(
+    // generate tasks
+    id, // string, student id
+    ...params
+  ) {
+    const generateTasks = require('../lib/generate.js');
+    generateTasks(id, ...params);
+    doExit();
+  },
+
+  help(
+    // list all commands
+  ) {
+    console.log('Usage: hpw <command>\n');
+    console.log('List of available commands:');
+    for (commandName in commands) console.log(commandName);
+    doExit();
+  }
 };
 
 console.log('How Programming Works');
-console.log(concolor.info('Laboratory Work Generator and Checker'));
+console.log(concolor.info('Laboratory Work Generator and Checker \n'));
 
 // Parse command line
 //
@@ -60,8 +78,8 @@ if (parameters.length < 3) {
 } else {
   parameters.shift();
   parameters.shift();
-  commandName = parameters[0];
+  commandName = parameters.shift();
   command = commands[commandName];
   if (!command) showHelp();
-  else command();
+  else command(...parameters);
 }
