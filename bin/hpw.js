@@ -14,31 +14,24 @@ const curDir = process.cwd();
 let commandName, command;
 const parameters = process.argv;
 
-function doExit(
-  // Release readline on exit
-) {
+const doExit = () => {
   rl.close();
   process.chdir(curDir);
   process.exit(0);
-}
+};
 
-function showHelp(
-  // Command line commands list
-) {
+const showHelp = () => {
   console.log(
     concolor.b('Syntax:') +
-    concolor.white(' hpw generate <studCode>\n')
+    concolor.white(' hpw test <file>\n')
   );
   doExit();
-}
+};
 
 // Commands
 //
 const commands = {
-
-  version(
-    // show versions
-  ) {
+  version() {
     console.log(
       '  Node.js: ' + process.versions.node + '\n' +
       '       v8: ' + process.versions.v8 + '\n' +
@@ -48,19 +41,12 @@ const commands = {
     doExit();
   },
 
-  generate(
-    // generate tasks
-    id, // string, student id
-    ...params
-  ) {
-    const generateTasks = require('../lib/generate.js');
-    generateTasks(id, ...params);
+  test(file) {
+    console.log('Testing file: ' + file);
     doExit();
   },
 
-  help(
-    // list all commands
-  ) {
+  help() {
     console.log('Usage: hpw <command>\n');
     console.log('List of available commands:');
     for (commandName in commands) console.log(commandName);
@@ -69,10 +55,8 @@ const commands = {
 };
 
 console.log('How Programming Works');
-console.log(concolor.info('Laboratory Work Generator and Checker \n'));
+console.log(concolor.info('Labs Auto Checker\n'));
 
-// Parse command line
-//
 if (parameters.length < 3) {
   showHelp();
 } else {
