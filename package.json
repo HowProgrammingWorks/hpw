@@ -1,8 +1,8 @@
 {
   "name": "hpw",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
-  "description": "Laboratory Work Generator and Checker",
+  "description": "Labs Auto Checker",
   "license": "MIT",
   "keywords": [
     "javascript",
@@ -29,13 +29,13 @@
     "lint": "eslint ."
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=10.0.0"
   },
   "dependencies": {
-    "metasync": "^0.3.7",
-    "concolor": "^0.1.4"
+    "concolor": "^0.1.12",
+    "metasync": "^0.3.31"
   },
   "devDependencies": {
-    "eslint": "^4.3.0"
+    "eslint": "^6.3.0"
   }
 }
