@@ -23,9 +23,9 @@ const loadFile = async file => {
   const data = await fs.readFile(fileName, 'utf8');
   const isTest = file.includes('.test');
   const src = isTest ? `() => ( ${data} );` : `() => { ${data} };`;
-  const options = { timeout: PARSING_TIMEOUT };
   let script;
   try {
+    const options = { timeout: PARSING_TIMEOUT };
     script = new vm.Script(src, options);
   } catch (e) {
     console.dir(e);
@@ -35,6 +35,7 @@ const loadFile = async file => {
   const sandbox = prepareSandbox();
   let exported, result;
   try {
+    const options = { timeout: EXECUTION_TIMEOUT };
     const f = script.runInNewContext(sandbox, options);
     result = f();
     exported = sandbox.module.exports;
@@ -53,11 +54,28 @@ const executeTest = async file => {
   const test = await loadFile(testFile);
   const target = js[test.name];
   if (!target) throw new Error('No test target detected');
+  if (target.name !== test.name) {
+    throw new Error(`Function ${test.name} is not found`);
+  }
   const targetLength = target.toString().length;
   const [minLength, maxLength] = test.length;
-  if (targetLength > maxLength) throw new Error('Solution is too short');
-  if (targetLength < minLength) throw new Error('Solution is too long');
-  console.dir({ js, test });
+  if (targetLength > maxLength) throw new Error('Solution is too long');
+  if (targetLength < minLength) throw new Error('Solution is too short');
+  let casesResult;
+  if (test.cases) {
+    for (const callCase of test.cases) {
+      const expected = callCase.pop();
+      const result = target(...callCase);
+      if (result !== expected) {
+        throw new Error(`Case failed: expected ${expected}, result: ${result}`);
+      }
+    }
+    casesResult = concolor`Passed cases: ${test.cases.length}(b,white)`;
+  }
+  if (test.test) {
+    test.test(target);
+  }
+  console.log(concolor`  Status: ${'Passed'}(b,white), ${casesResult}(green)`);
 };
 
 (async () => {

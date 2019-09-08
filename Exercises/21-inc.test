@@ -1,7 +1,7 @@
 ({
   name: 'inc',
-  length: [30, 50],
-  tests: [
+  length: [7, 20],
+  cases: [
     [0, 1],
     [1, 2],
     [-1, 0],
