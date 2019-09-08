@@ -47,25 +47,37 @@ const loadFile = async file => {
   return exported ? exported : result;
 };
 
+const countLines = s => {
+  let count = 1;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '\n') count++;
+  }
+  return count;
+};
+
 const executeTest = async file => {
   const jsFile = `./${file}.js`;
   const js = await loadFile(jsFile);
   const testFile = `./${file}.test`;
   const test = await loadFile(testFile);
   const target = js[test.name];
-  if (!target) throw new Error('No test target detected');
+  if (!target) throw new Error('No implementation detected');
   if (target.name !== test.name) {
     throw new Error(`Function ${test.name} is not found`);
   }
   const targetLength = target.toString().length;
+  const lines = countLines(target.toString());
+  const msgLength = concolor`  Length: ${targetLength}(b,white), `;
+  const msgLines = concolor`lines: ${lines}(b,white)`;
+  console.log(msgLength + msgLines);
   const [minLength, maxLength] = test.length;
   if (targetLength > maxLength) throw new Error('Solution is too long');
   if (targetLength < minLength) throw new Error('Solution is too short');
-  let casesResult;
+  let casesResult = 'No test cases';
   if (test.cases) {
     for (const callCase of test.cases) {
-      const expected = callCase.pop();
-      const result = target(...callCase);
+      const expected = JSON.stringify(callCase.pop());
+      const result = JSON.stringify(target(...callCase));
       if (result !== expected) {
         throw new Error(`Case failed: expected ${expected}, result: ${result}`);
       }
