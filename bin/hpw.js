@@ -62,8 +62,10 @@ const executeTest = async file => {
   const test = await loadFile(testFile);
   const target = js[test.name];
   if (!target) throw new Error('No implementation detected');
-  if (target.name !== test.name) {
-    throw new Error(`Function ${test.name} is not found`);
+  if (typeof target === 'function') {
+    if (target.name !== test.name) {
+      throw new Error(`Function ${test.name} is not found`);
+    }
   }
   const targetLength = target.toString().length;
   const lines = countLines(target.toString());

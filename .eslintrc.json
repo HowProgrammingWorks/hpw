@@ -259,5 +259,13 @@
       "error",
       "never"
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["5-scalar.js"],
+      "rules": {
+        "prefer-const": "off"
+      }
+    }
+  ]
 }
