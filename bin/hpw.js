@@ -4,6 +4,12 @@
 const PARSING_TIMEOUT = 1000;
 const EXECUTION_TIMEOUT = 5000;
 
+const vNode = parseInt(process.versions.node.split('.')[0], 10);
+if (vNode < 10) {
+  console.log('You need node.js v10.0 or greater to run tests');
+  process.exit(1);
+}
+
 const vm = require('vm');
 const fs = require('fs').promises;
 const concolor = require('concolor');
@@ -55,13 +61,7 @@ const countLines = s => {
   return count;
 };
 
-const executeTest = async file => {
-  const jsFile = `./${file}.js`;
-  const js = await loadFile(jsFile);
-  const testFile = `./${file}.test`;
-  const test = await loadFile(testFile);
-  const target = js[test.name];
-  if (!target) throw new Error('No implementation detected');
+const checkTarget = async (name, target, test) => {
   if (typeof target === 'function') {
     if (target.name !== test.name) {
       throw new Error(`Function ${test.name} is not found`);
@@ -69,9 +69,10 @@ const executeTest = async file => {
   }
   const targetLength = target.toString().length;
   const lines = countLines(target.toString());
-  const msgLength = concolor`  Length: ${targetLength}(b,white), `;
-  const msgLines = concolor`lines: ${lines}(b,white)`;
-  console.log(msgLength + msgLines);
+  const msgTarget = concolor`  Target: ${name}(b,white), `;
+  const msgLength = concolor`Length: ${targetLength}(b,white), `;
+  const msgLines = concolor`Lines: ${lines}(b,white)`;
+  console.log(msgTarget + msgLength + msgLines);
   const [minLength, maxLength] = test.length;
   if (targetLength > maxLength) throw new Error('Solution is too long');
   if (targetLength < minLength) throw new Error('Solution is too short');
@@ -89,7 +90,21 @@ const executeTest = async file => {
   if (test.test) {
     test.test(target);
   }
-  console.log(concolor`  Status: ${'Passed'}(b,white), ${casesResult}(green)`);
+  console.log(concolor`  Status: ${'Passed'}(b,green), ${casesResult}(green)`);
+};
+
+const executeTest = async file => {
+  const jsFile = `./${file}.js`;
+  const js = await loadFile(jsFile);
+  const testFile = `./${file}.test`;
+  const test = await loadFile(testFile);
+  const tests = Array.isArray(test) ? test : [test];
+  for (const currentTest of tests) {
+    const { name } = currentTest;
+    const target = js[name];
+    if (!target) throw new Error(`No implementation detected: ${name}`);
+    await checkTarget(name, target, currentTest);
+  }
 };
 
 (async () => {
