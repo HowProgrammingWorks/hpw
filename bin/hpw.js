@@ -73,7 +73,7 @@ const checkTarget = async (name, target, test) => {
   const msgLength = concolor`Length: ${targetLength}(b,white), `;
   const msgLines = concolor`Lines: ${lines}(b,white)`;
   console.log(msgTarget + msgLength + msgLines);
-  const [minLength, maxLength] = test.length;
+  const [minLength, maxLength] = test.length || [];
   if (targetLength > maxLength) throw new Error('Solution is too long');
   if (targetLength < minLength) throw new Error('Solution is too short');
   let casesResult = 'No test cases';
