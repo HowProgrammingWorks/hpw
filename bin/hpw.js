@@ -80,9 +80,14 @@ const checkTarget = async (name, target, test) => {
   if (test.cases) {
     for (const callCase of test.cases) {
       const expected = JSON.stringify(callCase.pop());
-      const result = JSON.stringify(target(...callCase));
+      const targetResult = target(...callCase);
+      const result = JSON.stringify(targetResult);
+      const callArgs = callCase.map(el => JSON.stringify(el)).join(', ');
+      const args = `arguments: (${callArgs})`;
       if (result !== expected) {
-        throw new Error(`Case failed: expected ${expected}, result: ${result}`);
+        throw new Error(
+          `Case failed: ${args}, expected: ${expected}, result: ${result}`
+        );
       }
     }
     casesResult = concolor`Passed cases: ${test.cases.length}(b,white)`;
