@@ -119,7 +119,13 @@ const executeTest = async file => {
     try {
       await executeTest(test);
     } catch (e) {
-      console.log(concolor`  Error: ${e.message}(b,red)`);
+      const lines = e.stack.split('\n');
+      if (lines[1].includes('at Object.test')) {
+        console.log(concolor`  Error: ${e.message}(b,red)`);
+      } else {
+        const stack = lines.filter(s => !s.includes('hpw.js')).join('\n  ');
+        console.log(concolor`  Error: ${stack}(b,red)`);
+      }
     }
   }
 })();
