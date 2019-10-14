@@ -126,10 +126,10 @@ const executeTest = async file => {
     } catch (e) {
       const lines = e.stack.split('\n');
       if (lines[1].includes('at Object.test')) {
-        console.log(concolor`  Error: ${e.message}(b,red)`);
+        console.log(concolor`  ${'Error: ' + e.message}(b,red)`);
       } else {
         const stack = lines.filter(s => !s.includes('hpw.js')).join('\n  ');
-        console.log(concolor`  Error: ${stack}(b,red)`);
+        console.log(concolor`  ${stack}(b,red)`);
       }
     }
   }
