@@ -16,6 +16,7 @@ const concolor = require('concolor');
 
 const curDir = process.cwd();
 const dir = curDir + (curDir.includes('/Exercises') ? '' : '/Exercises');
+let exitCode = 0;
 
 const prepareSandbox = () => {
   const context = { module: {}, console };
@@ -124,6 +125,7 @@ const executeTest = async file => {
     try {
       await executeTest(test);
     } catch (e) {
+      if (exitCode === 0) exitCode = 1;
       const lines = e.stack.split('\n');
       if (lines[1].includes('at Object.test')) {
         console.log(concolor`  ${'Error: ' + e.message}(b,red)`);
@@ -133,4 +135,5 @@ const executeTest = async file => {
       }
     }
   }
+  process.exit(exitCode);
 })();
