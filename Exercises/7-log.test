@@ -1,0 +1,20 @@
+[{
+  name: 'ln',
+  length: [30, 35],
+  cases: [
+    [1, 0],
+    [0, -Infinity],
+    [Math.E, 1],
+    [Math.E ** 3, 3],
+  ]
+}, {
+  name: 'log',
+  length: [25, 30],
+  cases: [
+    [1, 2, Infinity],
+    [2, 4, 2],
+    [2, 1, 0],
+    [2, 8, 3],
+    [3, 243, 5],
+  ]
+}]
