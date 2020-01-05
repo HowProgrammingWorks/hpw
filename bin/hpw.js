@@ -63,9 +63,13 @@ const countLines = s => {
 };
 
 const checkTarget = async (name, target, test) => {
+  const msgTarget = concolor`  Target: ${name}(b,white), `;
+  if (!target) {
+    console.log(msgTarget + 'Status: not found');
+    throw new Error(`No implementation detected: ${name}`);
+  }
   const targetLength = target.toString().length;
   const lines = countLines(target.toString());
-  const msgTarget = concolor`  Target: ${name}(b,white), `;
   const msgLength = concolor`Length: ${targetLength}(b,white), `;
   const msgLines = concolor`Lines: ${lines}(b,white)`;
   console.log(msgTarget + msgLength + msgLines);
@@ -103,24 +107,10 @@ const executeTest = async file => {
   for (const currentTest of tests) {
     const { name } = currentTest;
     const target = js[name];
-    if (!target) throw new Error(`No implementation detected: ${name}`);
-    await checkTarget(name, target, currentTest);
-  }
-};
-
-(async () => {
-  console.log(concolor.white('How Programming Works'));
-  console.log(concolor.info('Labs Auto Checker\n'));
-  const files = await fs.readdir(dir);
-  const tests = files
-    .filter(file => file.endsWith('.test'))
-    .map(file => file.substring(0, file.length - '.test'.length));
-  for (const test of tests) {
-    console.log(concolor`\nTest ${test}(b,white)`);
     try {
-      await executeTest(test);
+      await checkTarget(name, target, currentTest);
     } catch (e) {
-      if (exitCode === 0) exitCode = 1;
+      exitCode = 1;
       const lines = e.stack.split('\n');
       if (lines[1].includes('at Object.test')) {
         console.log(concolor`  ${'Error: ' + e.message}(b,red)`);
@@ -130,5 +120,19 @@ const executeTest = async file => {
       }
     }
   }
+};
+
+(async () => {
+  console.log(concolor.white('How Programming Works'));
+  console.log(concolor.info('Labs Auto Checker'));
+  const files = await fs.readdir(dir);
+  const tests = files
+    .filter(file => file.endsWith('.test'))
+    .map(file => file.substring(0, file.length - '.test'.length));
+  for (const test of tests) {
+    console.log(concolor`\nTest ${test}(b,white)`);
+    await executeTest(test);
+  }
+  console.log('');
   process.exit(exitCode);
 })();
