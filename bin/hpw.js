@@ -63,11 +63,6 @@ const countLines = s => {
 };
 
 const checkTarget = async (name, target, test) => {
-  if (typeof target === 'function') {
-    if (target.name !== test.name) {
-      throw new Error(`Function ${test.name} is not found`);
-    }
-  }
   const targetLength = target.toString().length;
   const lines = countLines(target.toString());
   const msgTarget = concolor`  Target: ${name}(b,white), `;
