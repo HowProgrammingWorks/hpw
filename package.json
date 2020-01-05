@@ -1,6 +1,6 @@
 {
   "name": "hpw",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Labs Auto Checker",
   "license": "MIT",
@@ -35,6 +35,6 @@
     "metasync": "^0.3.31"
   },
   "devDependencies": {
-    "eslint": "^6.7.2"
+    "eslint": "^6.8.0"
   }
 }
