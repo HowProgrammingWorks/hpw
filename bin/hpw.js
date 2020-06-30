@@ -79,8 +79,11 @@ const checkTarget = async (name, target, test) => {
       `Solution is too long: no more than ${maxLength} characters expected.`
     );
   }
-  if (targetLength < minLength) throw new Error('Solution is too short: ' +
-    `at least ${minLength} characters expected.`);
+  if (targetLength < minLength) {
+    throw new Error(
+      `Solution is too short: at least ${minLength} characters expected.`
+    );
+  }
   let casesResult = 'No test cases';
   if (test.cases) {
     for (const callCase of test.cases) {
