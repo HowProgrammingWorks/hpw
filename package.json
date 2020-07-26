@@ -18,6 +18,7 @@
     "url": "https://github.com/HowProgrammingWorks/Labs/issues",
     "email": "timur.shemsedinov@gmail.com"
   },
+  "funding": "https://www.patreon.com/tshemsedinov",
   "main": "./bin/hpw.js",
   "bin": {
     "hpw": "./bin/hpw.js"
