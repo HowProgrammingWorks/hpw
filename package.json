@@ -1,6 +1,6 @@
 {
   "name": "hpw",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Labs Auto Checker",
   "license": "MIT",
@@ -32,9 +32,9 @@
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "concolor": "^0.1.15"
+    "concolor": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.4.0"
+    "eslint": "^7.17.0"
   }
 }
