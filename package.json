@@ -32,7 +32,7 @@
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "concolor": "^0.1.15"
+    "concolor": "^0.1.16"
   },
   "devDependencies": {
     "eslint": "^7.4.0"
