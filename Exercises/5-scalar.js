@@ -1,5 +1,5 @@
 'use strict';
 
-let name = 'Marcus Aurelius';
+const name = 'Marcus Aurelius';
 
 module.exports = { name };

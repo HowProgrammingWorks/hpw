@@ -25,7 +25,7 @@ const prepareSandbox = () => {
   return sandbox;
 };
 
-const loadFile = async file => {
+const loadFile = async (file) => {
   const fileName = dir + '/' + file;
   const data = await fs.readFile(fileName, 'utf8');
   const isTest = file.includes('.test');
@@ -54,7 +54,7 @@ const loadFile = async file => {
   return exported ? exported : result;
 };
 
-const countLines = s => {
+const countLines = (s) => {
   let count = 1;
   for (let i = 0; i < s.length; i++) {
     if (s[i] === '\n') count++;
@@ -90,7 +90,7 @@ const checkTarget = async (name, target, test) => {
       const expected = JSON.stringify(callCase.pop());
       const targetResult = target(...callCase);
       const result = JSON.stringify(targetResult);
-      const callArgs = callCase.map(el => JSON.stringify(el)).join(', ');
+      const callArgs = callCase.map((el) => JSON.stringify(el)).join(', ');
       const args = `arguments: (${callArgs})`;
       if (result !== expected) {
         throw new Error(
@@ -106,7 +106,7 @@ const checkTarget = async (name, target, test) => {
   console.log(concolor`  Status: ${'Passed'}(b,green), ${casesResult}(green)`);
 };
 
-const executeTest = async file => {
+const executeTest = async (file) => {
   const jsFile = `./${file}.js`;
   const js = await loadFile(jsFile);
   const testFile = `./${file}.test`;
@@ -123,7 +123,7 @@ const executeTest = async file => {
       if (lines[1].includes('at Object.test')) {
         console.log(concolor`  ${'Error: ' + e.message}(b,red)`);
       } else {
-        const stack = lines.filter(s => !s.includes('hpw.js')).join('\n  ');
+        const stack = lines.filter((s) => !s.includes('hpw.js')).join('\n  ');
         console.log(concolor`  ${stack}(b,red)`);
       }
     }
@@ -135,8 +135,8 @@ const executeTest = async file => {
   console.log(concolor.info('Labs Auto Checker'));
   const files = await fs.readdir(dir);
   const tests = files
-    .filter(file => file.endsWith('.test'))
-    .map(file => file.substring(0, file.length - '.test'.length));
+    .filter((file) => file.endsWith('.test'))
+    .map((file) => file.substring(0, file.length - '.test'.length));
   for (const test of tests) {
     console.log(concolor`\nTest ${test}(b,white)`);
     await executeTest(test);

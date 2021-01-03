@@ -1,6 +1,6 @@
 'use strict';
 
-const inc = num => {
+const inc = (num) => {
   num.n += 1;
 };
 
