@@ -29,12 +29,12 @@
     "lint": "eslint ."
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
-    "concolor": "^1.0.3"
+    "concolor": "^1.0.6"
   },
   "devDependencies": {
-    "eslint": "^8.25.0"
+    "eslint": "^8.34.0"
   }
 }
