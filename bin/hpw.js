@@ -10,8 +10,8 @@ if (vNode < 10) {
   process.exit(1);
 }
 
-const vm = require('vm');
-const fs = require('fs').promises;
+const vm = require('node:vm');
+const fs = require('node:fs').promises;
 const concolor = require('concolor');
 
 const curDir = process.cwd();
