@@ -35,6 +35,6 @@
     "concolor": "^1.0.6"
   },
   "devDependencies": {
-    "eslint": "^8.34.0"
+    "eslint": "^8.49.0"
   }
 }
