@@ -12,7 +12,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/HowProgrammingWorks/Labs"
+    "url": "git+https://github.com/HowProgrammingWorks/Labs.git"
   },
   "bugs": {
     "url": "https://github.com/HowProgrammingWorks/Labs/issues",
@@ -21,7 +21,7 @@
   "funding": "https://www.patreon.com/tshemsedinov",
   "main": "./bin/hpw.js",
   "bin": {
-    "hpw": "./bin/hpw.js"
+    "hpw": "bin/hpw.js"
   },
   "scripts": {
     "install": "node ./bin/install.js",
