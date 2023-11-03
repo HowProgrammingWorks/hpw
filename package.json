@@ -24,9 +24,10 @@
     "hpw": "bin/hpw.js"
   },
   "scripts": {
-    "install": "node ./bin/install.js",
-    "test": "node ./bin/hpw.js",
-    "lint": "eslint ."
+    "test": "npm run lint && node ./bin/hpw.js",
+    "types": "tsc -p tsconfig.json",
+    "lint": "eslint . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\"",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\""
   },
   "engines": {
     "node": ">=16.0.0"
@@ -35,6 +36,10 @@
     "concolor": "^1.0.6"
   },
   "devDependencies": {
-    "eslint": "^8.49.0"
-  }
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0"
+ }
 }
