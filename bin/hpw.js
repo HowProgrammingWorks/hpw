@@ -76,12 +76,12 @@ const checkTarget = async (name, target, test) => {
   const [minLength, maxLength] = test.length || [];
   if (targetLength > maxLength) {
     throw new Error(
-      `Solution is too long: no more than ${maxLength} characters expected.`
+      `Solution is too long: no more than ${maxLength} characters expected.`,
     );
   }
   if (targetLength < minLength) {
     throw new Error(
-      `Solution is too short: at least ${minLength} characters expected.`
+      `Solution is too short: at least ${minLength} characters expected.`,
     );
   }
   let casesResult = 'No test cases';
@@ -94,7 +94,7 @@ const checkTarget = async (name, target, test) => {
       const args = `arguments: (${callArgs})`;
       if (result !== expected) {
         throw new Error(
-          `Case failed: ${args}, expected: ${expected}, result: ${result}`
+          `Case failed: ${args}, expected: ${expected}, result: ${result}`,
         );
       }
     }
